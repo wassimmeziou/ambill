@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LigneReglement index{% endblock %}
+
+{% block body %}
+    <h1>LigneReglement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PrixRestant</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ligne_reglement in ligne_reglements %}
+            <tr>
+                <td>{{ ligne_reglement.id }}</td>
+                <td>{{ ligne_reglement.prixRestant }}</td>
+                <td>
+                    <a href="{{ path('ligne_reglement_show', {'id': ligne_reglement.id}) }}">show</a>
+                    <a href="{{ path('ligne_reglement_edit', {'id': ligne_reglement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ligne_reglement_new') }}">Create new</a>
+{% endblock %}

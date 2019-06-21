@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    <h1>Article</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ article.designation }}</td>
+            </tr>
+            <tr>
+                <th>PrixHT</th>
+                <td>{{ article.prixHT }}</td>
+            </tr>
+            <tr>
+                <th>PrixTTC</th>
+                <td>{{ article.prixTTC }}</td>
+            </tr>
+            <tr>
+                <th>Disponibilit</th>
+                <td>{{ article.disponibilit ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Unit</th>
+                <td>{{ article.unit }}</td>
+            </tr>
+            <tr>
+                <th>BarCode</th>
+                <td>{{ article.barCode }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('article_index') }}">back to list</a>
+
+    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+
+    {{ include('article/_delete_form.html.twig') }}
+{% endblock %}

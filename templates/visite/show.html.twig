@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Visite{% endblock %}
+
+{% block body %}
+    <h1>Visite</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ visite.id }}</td>
+            </tr>
+            <tr>
+                <th>DateVisite</th>
+                <td>{{ visite.dateVisite ? visite.dateVisite|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Remarques</th>
+                <td>{{ visite.remarques }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('visite_index') }}">back to list</a>
+
+    <a href="{{ path('visite_edit', {'id': visite.id}) }}">edit</a>
+
+    {{ include('visite/_delete_form.html.twig') }}
+{% endblock %}

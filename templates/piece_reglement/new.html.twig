@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PieceReglement{% endblock %}
+
+{% block body %}
+    <h1>Create new PieceReglement</h1>
+
+    {{ include('piece_reglement/_form.html.twig') }}
+
+    <a href="{{ path('piece_reglement_index') }}">back to list</a>
+{% endblock %}

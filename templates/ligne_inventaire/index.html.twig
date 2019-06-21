@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LigneInventaire index{% endblock %}
+
+{% block body %}
+    <h1>LigneInventaire index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>QteInv</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ligne_inventaire in ligne_inventaires %}
+            <tr>
+                <td>{{ ligne_inventaire.id }}</td>
+                <td>{{ ligne_inventaire.qteInv }}</td>
+                <td>
+                    <a href="{{ path('ligne_inventaire_show', {'id': ligne_inventaire.id}) }}">show</a>
+                    <a href="{{ path('ligne_inventaire_edit', {'id': ligne_inventaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ligne_inventaire_new') }}">Create new</a>
+{% endblock %}

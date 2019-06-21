@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LigneDemandeStock index{% endblock %}
+
+{% block body %}
+    <h1>LigneDemandeStock index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Qte</th>
+                <th>QteLiv</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ligne_demande_stock in ligne_demande_stocks %}
+            <tr>
+                <td>{{ ligne_demande_stock.id }}</td>
+                <td>{{ ligne_demande_stock.qte }}</td>
+                <td>{{ ligne_demande_stock.qteLiv }}</td>
+                <td>
+                    <a href="{{ path('ligne_demande_stock_show', {'id': ligne_demande_stock.id}) }}">show</a>
+                    <a href="{{ path('ligne_demande_stock_edit', {'id': ligne_demande_stock.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ligne_demande_stock_new') }}">Create new</a>
+{% endblock %}

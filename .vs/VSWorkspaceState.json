@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\Controller",
+    "\\src\\Entity",
+    "\\src\\Form",
+    "\\templates",
+    "\\templates\\article",
+    "\\templates\\depot"
+  ],
+  "SelectedNode": "\\templates\\article\\_delete_form.html.twig",
+  "PreviewInSolutionExplorer": false
+}

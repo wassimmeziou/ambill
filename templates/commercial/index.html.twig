@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commercial index{% endblock %}
+
+{% block body %}
+    <h1>Commercial index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cin</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>Age</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commercial in commercials %}
+            <tr>
+                <td>{{ commercial.id }}</td>
+                <td>{{ commercial.cin }}</td>
+                <td>{{ commercial.nom }}</td>
+                <td>{{ commercial.prenom }}</td>
+                <td>{{ commercial.adresse }}</td>
+                <td>{{ commercial.ville }}</td>
+                <td>{{ commercial.age }}</td>
+                <td>
+                    <a href="{{ path('commercial_show', {'id': commercial.id}) }}">show</a>
+                    <a href="{{ path('commercial_edit', {'id': commercial.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('commercial_new') }}">Create new</a>
+{% endblock %}

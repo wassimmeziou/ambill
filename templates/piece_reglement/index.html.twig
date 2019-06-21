@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PieceReglement index{% endblock %}
+
+{% block body %}
+    <h1>PieceReglement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TypeRegl</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for piece_reglement in piece_reglements %}
+            <tr>
+                <td>{{ piece_reglement.id }}</td>
+                <td>{{ piece_reglement.typeRegl }}</td>
+                <td>
+                    <a href="{{ path('piece_reglement_show', {'id': piece_reglement.id}) }}">show</a>
+                    <a href="{{ path('piece_reglement_edit', {'id': piece_reglement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('piece_reglement_new') }}">Create new</a>
+{% endblock %}

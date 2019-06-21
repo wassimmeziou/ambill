@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StockVoitures index{% endblock %}
+
+{% block body %}
+    <h1>StockVoitures index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>QuantiteStockVoiture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stock_voiture in stock_voitures %}
+            <tr>
+                <td>{{ stock_voiture.id }}</td>
+                <td>{{ stock_voiture.quantiteStockVoiture }}</td>
+                <td>
+                    <a href="{{ path('stock_voitures_show', {'id': stock_voiture.id}) }}">show</a>
+                    <a href="{{ path('stock_voitures_edit', {'id': stock_voiture.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('stock_voitures_new') }}">Create new</a>
+{% endblock %}

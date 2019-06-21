@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DemandeStock{% endblock %}
+
+{% block body %}
+    <h1>DemandeStock</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande_stock.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('demande_stock_index') }}">back to list</a>
+
+    <a href="{{ path('demande_stock_edit', {'id': demande_stock.id}) }}">edit</a>
+
+    {{ include('demande_stock/_delete_form.html.twig') }}
+{% endblock %}
