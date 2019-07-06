@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit BonSortie{% endblock %}
+
+{% block body %}
+    <h1>Edit BonSortie</h1>
+
+    {{ include('bon_sortie/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('bon_sortie_index') }}">back to list</a>
+
+    {{ include('bon_sortie/_delete_form.html.twig') }}
+{% endblock %}

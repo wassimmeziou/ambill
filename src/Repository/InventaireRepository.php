@@ -22,19 +22,33 @@ class InventaireRepository extends ServiceEntityRepository
     // /**
     //  * @return Inventaire[] Returns an array of Inventaire objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findDopts()
     {
         return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
+            //->andWhere('i.voiture = :x')
+            ->where('i.depot is not NULL')
+          //  ->setParameter('x', !null)
             ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
+           // ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function findVoitures()
+    {
+        return $this->createQueryBuilder('i')
+            //->andWhere('i.voiture = :x')
+            ->where('i.voiture is not NULL')
+          //  ->setParameter('x', !null)
+            ->orderBy('i.id', 'ASC')
+           // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?Inventaire

@@ -53,7 +53,8 @@ class FactureController extends AbstractController
      */
     public function show(Facture $facture): Response
     {
-        return $this->render('facture/show.html.twig', [
+        return $this->render('ligne_facture/index.html.twig', [
+            'ligne_factures' => $facture->getLigneFacture(),
             'facture' => $facture,
         ]);
     }

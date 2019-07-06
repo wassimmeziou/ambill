@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Debug\Debug;
+
 
 /**
  * @Route("/commercial")
@@ -20,6 +22,8 @@ class CommercialController extends AbstractController
      */
     public function index(CommercialRepository $commercialRepository): Response
     {
+        dump($commercialRepository);
+
         return $this->render('commercial/index.html.twig', [
             'commercials' => $commercialRepository->findAll(),
         ]);
@@ -85,6 +89,9 @@ class CommercialController extends AbstractController
      */
     public function delete(Request $request, Commercial $commercial): Response
     {
+        Debug::enable();
+
+        dump($commercial);
         if ($this->isCsrfTokenValid('delete'.$commercial->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($commercial);

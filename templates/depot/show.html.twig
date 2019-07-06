@@ -12,19 +12,38 @@
                 <td>{{ depot.id }}</td>
             </tr>
             <tr>
-                <th>QuantiteDepot</th>
-                <td>{{ depot.quantiteDepot }}</td>
-            </tr>
-            <tr>
                 <th>AdresseDepot</th>
                 <td>{{ depot.adresseDepot }}</td>
             </tr>
+            <tr>
+                <th>NomDepot</th>
+                <td>{{ depot.nomDepot }}</td>
+            </tr>
+            <tr>
+                <th>Descrption</th>
+                <td>{{ depot.descrption }}</td>
+            </tr>
+
+             {% for s in depot.stocks %}
+            <tr>
+                <td>{{ s.quantityStock }}</td>
+                <td>{{ s.article.designation }}</td>
+                <td>
+                    <a href="{{ path('depot_show', {'id': s.id}) }}">show</a>
+                   
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('depot_index') }}">back to list</a>
+    <a href="{{ path('depot_index') }}" style="color:#00AAFF"><button class="btn btn-light custombutton" style="float:right;margin-left:5px;" type="button"/><i class="lnr lnr-arrow-left-circle"></i>Retourner</a>
 
-    <a href="{{ path('depot_edit', {'id': depot.id}) }}">edit</a>
+    <a href="{{ path('depot_edit', {'id': depot.id}) }}" style="color:#fff"><button class="btn btn-primary custombutton" style="float:right" type="button"/><i class="fa fa-check-circle"></i>Modifier</a>
 
     {{ include('depot/_delete_form.html.twig') }}
 {% endblock %}

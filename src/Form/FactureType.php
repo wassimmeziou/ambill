@@ -13,10 +13,9 @@ class FactureType extends AbstractType
     {
         $builder
             ->add('dateSaisie')
-            ->add('remise')
-            ->add('totalPrix')
-            ->add('commercial')
             ->add('client')
+            ->add('prixTotal')
+            ->add('commercial')
         ;
     }
 

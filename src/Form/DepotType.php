@@ -12,10 +12,27 @@ class DepotType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantiteDepot')
-            ->add('adresseDepot')
-        //  ->add('adresseDepot')
-           // ->add('adresseDepot')
+            ->add('adresseDepot',
+            null,
+            [
+                'label' => 'Adresse :',
+                'attr' => array('class' => 'form-control'),
+                // 'label_attr' => array('class' => 'fancy-checkbox')
+            ])
+            ->add('nomDepot',
+            null,
+            [
+                'label' => 'Nom :',
+                'attr' => array('class' => 'form-control'),
+                // 'label_attr' => array('class' => 'fancy-checkbox')
+            ])
+            ->add('descrption',
+            null,
+            [
+                'label' => 'Description :',
+                'attr' => array('class' => 'form-control'),
+                // 'label_attr' => array('class' => 'fancy-checkbox')
+            ])
         ;
     }
 

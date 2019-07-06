@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+// use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Countries;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommercialRepository")
  */
@@ -45,6 +46,18 @@ class Commercial
      * @ORM\Column(type="integer", nullable=true)
      */
     private $age;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Voiture", inversedBy="commercial", cascade={"persist", "remove"})
+     */
+    private $voiture;
+
+    private $countryName;
+
+    public function getCountryName() {
+       // return Intl::getRegionBundle()->getCountryName($this->getVille());
+        return  Countries::getName($this->getVille());
+    }
 
     public function getId(): ?int
     {
@@ -123,9 +136,21 @@ class Commercial
         return $this;
     }
 	public function __toString() {
-		$x = $this->prenom;
-		
-		$w = $this->nom;
-    return $w . " ".$x;
-}
+         		$x = $this->prenom;
+         		
+         		$w = $this->nom;
+             return $w . " ".$x;
+         }
+
+    public function getVoiture(): ?Voiture
+    {
+        return $this->voiture;
+    }
+
+    public function setVoiture(?Voiture $voiture): self
+    {
+        $this->voiture = $voiture;
+
+        return $this;
+    }
    }

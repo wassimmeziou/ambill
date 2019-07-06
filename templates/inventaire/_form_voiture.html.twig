@@ -1,0 +1,47 @@
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" rel="stylesheet">
+{{ form_start(form) }}
+<div class="row ">
+    <div
+        class="form-group ">
+        {# <div class="col-sm-8 col-sm-offset-2 "> #}
+        <div class="col-md-3 col-sm-6">
+
+            {{ form_row(form.reference) }}
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            {{ form_row(form.dateInv) }}
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+
+            {{ form_row(form.voiture) }}
+
+        </div>
+    </div>
+</div>
+<hr>
+<h3>Ajouter Articles</h3>
+<ul class="ligneInventaires" data-prototype="{{ form_widget(form.ligneInventaires.vars.prototype)|e('html_attr') }}"></ul>
+{# <ul class="tags">
+        {% for tag in form.ligneInventaires %}
+            <li>{{ form_row(tag.article) }}</li>
+            <li>{{ form_row(tag.qteInv) }}</li>
+        {% endfor %}
+    </ul> #}
+{# {{ form_end(form) }} #}
+{{ form_rest(form) }}
+
+<button class="btn btn-primary custombutton">
+    <i class="fa fa-check-circle"></i>Enregistrer</button>
+<a href="{{ path('inventaire_voiture_index') }}" style="color:#00AAFF"><button class="btn btn-light custombutton" style="float:right" type="button"/>Annuler</a>
+
+
+<script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+<script>
+    $(document).ready(function () { // you may need to change this code if you are not using Bootstrap Datepicker
+        $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ asset('callback.js') }}"/>

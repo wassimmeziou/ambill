@@ -13,7 +13,7 @@ class StockVoituresType extends AbstractType
     {
         $builder
             ->add('quantiteStockVoiture')
-            ->add('commercial')
+            ->add('voiture')
         ;
     }
 

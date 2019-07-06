@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BonSortie index{% endblock %}
+
+{% block body %}
+    <h1>BonSortie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>depot</th>
+                <th>Voiture</th>
+                <th>Commerciale</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bon_sortie in bon_sorties %}
+            <tr>
+                <td>{{ bon_sortie.id }}</td>
+                <td>{{ bon_sortie.reference }}</td>
+                <td>{{ bon_sortie.depot }}</td>
+                <td>{{ bon_sortie.stockVoiture.nomVoiture}}</td>
+                <td>{{ bon_sortie.stockVoiture.voiture.commercial.nom }}</td>
+                <td>
+                    <a href="{{ path('bon_sortie_show', {'id': bon_sortie.id}) }}">show</a>
+                    {# <a href="{{ path('bon_sortie_edit', {'id': bon_sortie.id}) }}">edit</a> #}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('bon_sortie_new') }}">Create new</a> #}
+{% endblock %}

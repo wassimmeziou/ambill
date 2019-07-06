@@ -31,6 +31,11 @@ class LigneInventaireController extends AbstractController
     public function new(Request $request): Response
     {
         $ligneInventaire = new LigneInventaire();
+
+        $qte = $ligneInventaire->qteInv;
+        $article = $ligneInventaire->article;
+        dump("qunt",$qte,"articlee",$article);
+
         $form = $this->createForm(LigneInventaireType::class, $ligneInventaire);
         $form->handleRequest($request);
 
@@ -38,6 +43,8 @@ class LigneInventaireController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ligneInventaire);
             $entityManager->flush();
+
+        
 
             return $this->redirectToRoute('ligne_inventaire_index');
         }
@@ -90,7 +97,11 @@ class LigneInventaireController extends AbstractController
             $entityManager->remove($ligneInventaire);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('ligne_inventaire_index');
+        // return $this->render('ligne_inventaire/index.html.twig', [
+        //     'ligne_inventaires' => $inventaire->getLigneInventaires(),
+        // ]);
+        return $this->redirectToRoute('inventaire_show', [
+            'id' => $ligneInventaire->getInventaire()->getId(),
+        ]);
     }
 }

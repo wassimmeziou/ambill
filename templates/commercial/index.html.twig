@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commercial index{% endblock %}
+{% block title %}Commercial index
+{% endblock %}
 
 {% block body %}
     <h1>Commercial index</h1>
@@ -19,27 +20,50 @@
             </tr>
         </thead>
         <tbody>
-        {% for commercial in commercials %}
-            <tr>
-                <td>{{ commercial.id }}</td>
-                <td>{{ commercial.cin }}</td>
-                <td>{{ commercial.nom }}</td>
-                <td>{{ commercial.prenom }}</td>
-                <td>{{ commercial.adresse }}</td>
-                <td>{{ commercial.ville }}</td>
-                <td>{{ commercial.age }}</td>
-                <td>
-                    <a href="{{ path('commercial_show', {'id': commercial.id}) }}">show</a>
-                    <a href="{{ path('commercial_edit', {'id': commercial.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for commercial in commercials %}
+                <tr>
+                    <td>{{ commercial.id }}</td>
+                    <td>{{ commercial.cin }}</td>
+                    <td>{{ commercial.nom }}</td>
+                    <td>{{ commercial.prenom }}</td>
+                    <td>{{ commercial.adresse }}</td>
+                    <td>{{ commercial.getCountryName }}</td>
+                    <td>{{ commercial.age }}</td>
+                    <td style="display: -webkit-box">
+                        <li style="list-style-type: none">
+                            <a class="" href="{{ path('commercial_show', {'id': commercial.id}) }}">
+                                <i class="lnr lnr-eye mr"></i>
+
+                            </a>
+                        </li>
+                        <li style="list-style-type: none">
+                            <a class="" href="{{ path('commercial_edit', {'id': commercial.id}) }}">
+                                <i class="lnr lnr-pencil"></i>
+
+                            </a>
+                        </li>
+                        <li style="list-style-type: none">
+                            <form method="post" action="{{ path('commercial_delete', {'id': commercial.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+
+                                <button class="btn-link" style="margin-top: -10px">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commercial.id) }}">
+                                    <i class="lnr lnr-trash"></i>
+
+                                </button>
+                            </form>
+                        </li>
+                        {# <a href="">show</a> #}
+                        {# <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a> #}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+    <a href="{{ path('commercial_new') }}" style="color:#fff"><button class="btn btn-success" type="button"/>Ajouter Commercial</a>
 
-    <a href="{{ path('commercial_new') }}">Create new</a>
 {% endblock %}

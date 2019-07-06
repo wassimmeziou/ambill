@@ -27,9 +27,11 @@ class LigneBonSortie
     private $article;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\BonSortie")
+     * @ORM\ManyToOne(targetEntity="App\Entity\BonSortie", inversedBy="ligneBonSorties")
      */
     private $bonSortie;
+
+
 
 
     public function getId(): ?int
@@ -72,4 +74,6 @@ class LigneBonSortie
 
         return $this;
     }
+
+  
 }

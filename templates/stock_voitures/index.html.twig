@@ -1,35 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}StockVoitures index{% endblock %}
+{% block title %}Stock Voitures{% endblock %}
 
 {% block body %}
-    <h1>StockVoitures index</h1>
+    <h1>Stock Voiture <b>{{ voiture.model }} {{ voiture.matricule }}</b> </h1>
+    <h2><div style="float:right;color:blue"> Commercial {{ voiture.Commercial.nom}} </div></h2>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>QuantiteStockVoiture</th>
-                <th>actions</th>
+                <th>Nom Article</th>
+                <th>Quantité</th>
+                {# <th>Voiture</th> #}
+                {# <th>Commercial</th> #}
+                {# <th>actions</th> #}
             </tr>
         </thead>
         <tbody>
         {% for stock_voiture in stock_voitures %}
             <tr>
                 <td>{{ stock_voiture.id }}</td>
+                <td>{{ stock_voiture.nomArticle }}</td>
                 <td>{{ stock_voiture.quantiteStockVoiture }}</td>
+                {# <td></td> #}
+                {# <td>{{ stock_voiture.voiture }}</td> #}
                 <td>
-                    <a href="{{ path('stock_voitures_show', {'id': stock_voiture.id}) }}">show</a>
-                    <a href="{{ path('stock_voitures_edit', {'id': stock_voiture.id}) }}">edit</a>
+                    {# <a href="{{ path('stock_voitures_show', {'id': stock_voiture.id}) }}">show</a> #}
+                    {# <a href="{{ path('stock_voitures_edit', {'id': stock_voiture.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('stock_voitures_new') }}">Create new</a>
+    {# <a href="{{ path('stock_voitures_new') }}">Create new</a> #}
 {% endblock %}

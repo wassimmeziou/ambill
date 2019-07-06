@@ -3,9 +3,10 @@
 {% block title %}New Inventaire{% endblock %}
 
 {% block body %}
-    <h1>Create new Inventaire</h1>
+    <h1>Create new Inventaire Depot</h1>
+{# {{dump()}} #}
+{{ include('inventaire/_form.html.twig') }} 
 
-    {{ include('inventaire/_form.html.twig') }}
+    {# <a href="{{ path('inventaire_index') }}">back to list</a> #}
 
-    <a href="{{ path('inventaire_index') }}">back to list</a>
 {% endblock %}

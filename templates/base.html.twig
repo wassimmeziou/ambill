@@ -1,116 +1,321 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('main.css') }}">
-    {% endblock %}
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Ambillons</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <!--<li class="nav-item">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>-->
-                <li {% if app.request.attributes.get('_route') in [
-                    'article_index' ,
-                    'article_show' ,
-                    'article_new' ,
-                    'article_edit' ,
-                    'article_delete'
-                    ] %} class="active" {% endif %}>
-                    <a class="nav-link" href="{{ path('article_index') }}">Articles</a>
-                </li>
-                <li {% if app.request.attributes.get('_route') in [
-                    'commercial_index' ,
-                    'commercial_new' ,
-                    'commercial_show' ,
-                    'commercial_edit' ,
-                    'commercial_delete'
-                    ] %} class="active" {% endif %}>
-                    <a class="nav-link" href="{{ path('commercial_index') }}">Commerciaux</a>
-                </li>
-                <li {% if app.request.attributes.get('_route') in [
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}Welcome!
+            {% endblock %}
+        </title>
+        {% block stylesheets %}
+            {#
+             <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+                                                <link rel="stylesheet" href="{{ asset('main.css') }}"> #}
+            <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/linearicons/style.css') }}" rel="stylesheet">
+            {# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css"> #}
+            <link
+            href="{{ asset('assets/vendor/chartist/css/chartist-custom.css') }}" rel="stylesheet">
+            <!-- MAIN CSS -->
+            <link
+            href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+            <link
+            href="{{ asset('custom.css') }}" rel="stylesheet">
+            <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+         
+            <!-- GOOGLE FONTS -->
+            <link
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+            <!-- ICONS -->
+            <link href="{{ asset('assets/img/apple-icon.png') }}" rel="apple-touch-icon" sizes="76x76">
+            <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" sizes="96x96" type="image/png">
+        {% endblock %}
+    </head>
+    <body>
+        <div
+            id="wrapper">
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="brand">
+                    <a href="#"><img alt=" Logo" class="img-responsive logo" src="{{ asset('assets/img/c.png') }}"></a>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-btn">
+                        <button class="btn-toggle-fullwidth" type="button">
+                            <i class="lnr lnr-arrow-left-circle"></i>
+                        </button>
+                    </div>
+                    <form class="navbar-form navbar-left">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search dashboard..." type="text" value="">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">Go</button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- <div class="navbar-btn navbar-btn-right"> -->
+                    <!-- <a class="btn btn-success update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a> -->
+                    <!-- </div> -->
+                        <div id="navbar-menu"> <ul class="nav navbar-nav navbar-right">
+                            <!-- <li class="dropdown"> -->
+                            <!-- <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown"> -->
+                            <!-- <i class="lnr lnr-alarm"></i> -->
+                            <!-- <span class="badge bg-danger">5</span> -->
+                            <!-- </a> -->
+                            <!-- <ul class="dropdown-menu notifications"> -->
+                            <!-- <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li> -->
+                            <!-- <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li> -->
+                            <!-- <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li> -->
+                            <!-- <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li> -->
+                            <!-- <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li> -->
+                            <!-- <li><a href="#" class="more">See all notifications</a></li> -->
+                            <!-- </ul> -->
+                            <!-- </li> -->
+                                <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="lnr lnr-question-circle"></i>
+                                    <span>Help</span>
+                                    <i class="icon-submenu lnr lnr-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Basic Use</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Working With Data</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Security</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Troubleshooting</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img alt="Avatar" class="img-circle" src="{{ asset('assets/img/user.png') }}">
+                                    <span>Admin</span>
+                                    <i class="icon-submenu lnr lnr-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="lnr lnr-user"></i>
+                                            <span>My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="lnr lnr-envelope"></i>
+                                            <span>Message</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="lnr lnr-cog"></i>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="lnr lnr-exit"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- <li>
+                            							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+                            						</li> -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- END NAVBAR -->
+            <!-- LEFT SIDEBAR -->
+            <div class="sidebar" id="sidebar-nav">
+                <div class="sidebar-scroll">
+                    <nav>
+                        <ul class="nav">
+                            <li >
+                                <a  {% if app.request.attributes.get('_route') in [ 'article_index' , 'article_show' , 'article_new' , 'article_edit' , 'article_delete' ] %} class="active" {% endif %}  href="{{ path('article_index') }}">
+                                    <i class="lnr lnr-layers"></i>
+                                    <span>Articles</span>
+                                </a>
+                            </li>
+                            <li >
+                                <a {% if app.request.attributes.get('_route') in [ 'commercial_index' , 'commercial_new' , 'commercial_show' , 'commercial_edit' , 'commercial_delete' ] %} class="active" {% endif %} href="{{ path('commercial_index') }}">
+                                    <i class="lnr  lnr-users"></i>
+                                    <span>Commercials</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a {% if app.request.attributes.get('_route') in [
+                    'voiture_index' ,
+                    'voiture_new' ,
+                    'voiture_show' ,
+                    'voiture_edit' ,
+                    'voiture_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('voiture_index') }}">
+                                    <i class="lnr lnr-car"></i>
+                                    <span>Voitures</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a {% if app.request.attributes.get('_route') in [
+                    'client_index' ,
+                    'client_new' ,
+                    'client_show' ,
+                    'client_edit' ,
+                    'client_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('client_index') }}">
+                                    <i class="fa fa-user-secret"></i>
+                                    <span>Clients</span>
+                                </a>
+                            </li>
+                                          <li>
+                                <a {% if app.request.attributes.get('_route') in [
+                    'visite_index' ,
+                    'visite_new' ,
+                    'visite_show' ,
+                    'visite_edit' ,
+                    'visite_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('visite_index') }}">
+                                     <i class="lnr lnr-eye mr"></i>
+                                    <span>Visites</span>
+                                </a>
+                            </li>
+                                <li>
+                                <a {% if app.request.attributes.get('_route') in [
                     'depot_index' ,
                     'depot_new' ,
                     'depot_show' ,
                     'depot_edit' ,
                     'depot_delete'
-                    ] %} class="active" {% endif %}>
-                    <a class="nav-link" href="{{ path('depot_index') }}">Depots</a>
-                </li>
-
-                <li {% if app.request.attributes.get('_route') in [
-                    'stock_voitures_index' ,
-                    'stock_voitures_new' ,
-                    'stock_voitures_show' ,
-                    'stock_voitures_edit' ,
-                    'stock_voitures_delete'
-                    ] %} class="active" {% endif %}>
-                    <a class="nav-link" href="{{ path('stock_voitures_index') }}">Stock Voitures</a>
-                </li>
-                <li {% if app.request.attributes.get('_route') in [
-                    'stock_index' ,
-                    'stock_new' ,
-                    'stock_show' ,
-                    'stock_edit' ,
-                    'stock_delete'
-                    ] %} class="active" {% endif %}>
-                    <a class="nav-link" href="{{ path('stock_index') }}">Stock</a>
-
-                <li {% if app.request.attributes.get('_route') in [
+                    ] %} class="active" {% endif %}  href="{{ path('depot_index') }}">
+                                    <i class="lnr lnr-home"></i>
+                                    <span>Depots</span>
+                                </a>
+                            </li>
+                             <li>
+                                <a {% if app.request.attributes.get('_route') in [
+                    'demande_stock_index' ,
+                    'demande_stock_new' ,
+                    'demande_stock_show' ,
+                    'demande_stock_edit' ,
+                    'demande_stock_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('demande_stock_index') }}">
+                                     <i class="lnr lnr-phone-handset"></i>
+                                    <span>Demandes de Stock</span>
+                                </a>
+                            </li>
+                               
+                  <li>
+                                <a {% if app.request.attributes.get('_route') in [
+                    'bon_sortie_index' ,
+                    'bon_sortie_new' ,
+                    'bon_sortie_show' ,
+                    'bon_sortie_edit' ,
+                    'bon_sortie_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('bon_sortie_index') }}">
+                                     <i class="lnr lnr-file-empty"></i>
+                                    <span>Bons De Sortie</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a{% if app.request.attributes.get('_route') in [
                     'inventaire_index' ,
                     'inventaire_new' ,
                     'inventaire_show' ,
                     'inventaire_edit' ,
                     'inventaire_delete'
-                    ] %} class="active" {% endif %}>
-                    <a class="nav-link" href="{{ path('inventaire_index') }}">Inventaires</a>
-                </li>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>-->
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-    <div class="container mt-4">
-        <div class="row">
+                    ] %} class="active"  {% endif %} data-toggle="collapse"  class="collapsed"  href="#subPages">
+                                    <i class="lnr lnr-briefcase"></i>
+                                    <span>Inventaires</span>
+                                    <i class="icon-submenu lnr lnr-chevron-left"></i>
+                                </a>
+                                <div class="collapse " id="subPages">
+                                    <ul class="nav">
+                                        <li>
+                                            <a {% if app.request.attributes.get('_route') in [
+                    'inventaire_index' ,
+                    'inventaire_new' ,
+                 
+                    'inventaire_edit' ,
+                    'inventaire_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('inventaire_index') }}">  
+                                  
+                      <i class="lnr lnr-home"></i>Depot</a>
+                                        </li>
+                                        <li>
+                                   
+                                            <a {% if app.request.attributes.get('_route') in [
+                    'inventaire_voiture_index' ,
+                    'inventaire_voiture_new',
 
-            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 pull-left ">
-                {% block body %}
-
-                {% endblock %}
+                    'inventaire_voiture_edit' ,
+                   'inventaire_voiture_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('inventaire_voiture_index') }}"> <i class="lnr lnr-car"></i> Voiture</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                          <li>
+                                <a {% if app.request.attributes.get('_route') in [
+                    'commands_index' ,
+                    'commands_new' ,
+                    'commands_show' ,
+                    'commands_edit' ,
+                    'commands_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('commands_index') }}">
+                                     <i class="fa fa-shopping-cart"></i>
+                                    <span>Commandes Clientéle</span>
+                                </a>
+                            </li>
+                         
+                            <li>
+                                <a {% if app.request.attributes.get('_route') in [
+                    'facture_index' ,
+                    'facture_new' ,
+                    'facture_show' ,
+                    'facture_edit' ,
+                    'facture_delete'
+                    ] %} class="active" {% endif %}  href="{{ path('facture_index') }}">
+                                     <i class="lnr lnr-envelope"></i>
+                                    <span>Factures</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-        </div>
-    </div>
-    {% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    {% endblock %}
-</body>
-</html>
+            <!-- END LEFT SIDEBAR -->
+            <!-- MAIN -->
+            <div class="main container">
+            <div class="row ">
+            <div class="panel ">
+    <div class="panel-body">
+            
+{% block body %}
+{{dump()}}
+{% endblock %}
+        
+            </div>
+            </div>
+            </div>
+            </div>
+        </body>
+        {% block javascripts %}
+            {# // <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+                            // <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+                            // <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                            // <script src="{{ asset('callback.js') }}"/> #}
+            <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/chartist/js/chartist.min.js') }}"></script>
+            <script src="{{ asset('assets/scripts/klorofil-common.js') }}"></script>
+        {% endblock %}
+    </body>
+</html></body></html>

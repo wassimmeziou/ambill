@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inventaire Voiture{% endblock %}
+
+{% block body %}
+    <h1>Inventaire voiture</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>reference</th>
+                <th>Voiture</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for inventaire in inventaires %}
+            <tr >
+                <td>{{ inventaire.id }}</td>
+                <td>{{ inventaire.reference }}</td>
+                <td>{{ inventaire.voiture }}</td>
+                <td>{{ inventaire.dateInv  ? inventaire.dateInv|date('Y-m-d') : '' }}</td>
+                 <td style="display: -webkit-box">
+                  <li style="list-style-type: none">
+                                <a class="" href="{{ path('inventaire_show', {'id': inventaire.id}) }}">
+                                    <i class="lnr lnr-eye mr"></i>
+                                
+                                </a>
+                            </li>
+                            <li style="list-style-type: none">
+                                <a class="" href="{{ path('inventaire_voiture_edit', {'id': inventaire.id}) }}">
+                                    <i class="lnr lnr-pencil"></i>
+                                    
+                                </a>
+                            </li>
+                            <li style="list-style-type: none">
+                            <form method="post" action="{{ path('inventaire_voiture_delete', {'id': inventaire.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+
+                                <button class="btn-link" style="margin-top: -10px">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inventaire.id) }}">
+                                    <i class="lnr lnr-trash"></i>
+
+                                </button>
+                            </form>
+                        </li>
+                </td> 
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+      <a href="{{ path('inventaire_voiture_new') }}" style="color:#fff"><button class="btn btn-success" type="button"/>Ajouter Inventaire</a> 
+
+{% endblock %}
+
+

@@ -15,10 +15,11 @@ class StockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantityStock')
-            ->add('article',null,['placeholder'=>'choisir un article'])
-            ->add('depot', DepotType::class)
+        ->add('depot', DepotType::class,['label'=>'Depot'])
 
+            ->add('quantityStock')
+          //  ->add('depot')
+            ->add('article',null,['placeholder'=>'choisir un article','label'=>'Article'])
         ;
     }
 

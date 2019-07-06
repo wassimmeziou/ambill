@@ -1,4 +1,10 @@
 {{ form_start(form) }}
+
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div style="color:red;">{{ form_errors(form) }}</div>
+
+ <button class="btn btn-primary custombutton">
+    <i class="fa fa-check-circle"></i>
+    {{ button_label|default('Enregistrer') }}</button>
+<a href="{{ path('article_index') }}" style="color:#00AAFF"><button class="btn btn-light custombutton" style="float:right" type="button"/>Annuler</a>
 {{ form_end(form) }}

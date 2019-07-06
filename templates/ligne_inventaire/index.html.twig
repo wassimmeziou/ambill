@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}LigneInventaire index{% endblock %}
+{% block title %}LigneInventaire{% endblock %}
 
 {% block body %}
-    <h1>LigneInventaire index</h1>
+    <h1>LigneInventaire</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Nom Article</th>
                 <th>QteInv</th>
                 <th>actions</th>
             </tr>
@@ -17,19 +18,42 @@
         {% for ligne_inventaire in ligne_inventaires %}
             <tr>
                 <td>{{ ligne_inventaire.id }}</td>
+                <td>{{ ligne_inventaire.nomArticle }}</td>
                 <td>{{ ligne_inventaire.qteInv }}</td>
-                <td>
-                    <a href="{{ path('ligne_inventaire_show', {'id': ligne_inventaire.id}) }}">show</a>
-                    <a href="{{ path('ligne_inventaire_edit', {'id': ligne_inventaire.id}) }}">edit</a>
+                <td style="display: -webkit-box">
+                  <li style="list-style-type: none">
+                                <a class="" href="{{ path('ligne_inventaire_show', {'id': ligne_inventaire.id}) }}">
+                                    <i class="lnr lnr-eye mr"></i>
+                                
+                                </a>
+                            </li>
+                            <li style="list-style-type: none">
+                                <a class="" href="{{ path('ligne_inventaire_edit', {'id': ligne_inventaire.id}) }}">
+                                    <i class="lnr lnr-pencil"></i>
+                                    
+                                </a>
+                            </li>
+                            <li style="list-style-type: none">
+                            <form method="post" action="{{ path('ligne_inventaire_delete', {'id': ligne_inventaire.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+
+                                <button class="btn-link" style="margin-top: -10px">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ligne_inventaire.id) }}">
+                                    <i class="lnr lnr-trash"></i>
+
+                                </button>
+                            </form>
+                        </li>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('ligne_inventaire_new') }}">Create new</a>
+     {# <a href="{{ path('ligne_inventaire_new') }}" style="color:#fff"><button class="btn btn-success" type="button"/>Ajouter Ligne</a> #}
+
 {% endblock %}

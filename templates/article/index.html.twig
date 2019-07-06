@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Article index{% endblock %}
-
 {% block body %}
-    <h1>Article index</h1>
 
-    <table class="table">
+    <h1>Article index</h1>
+   
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -28,9 +28,32 @@
                 <td>{{ article.disponibilit ? 'Yes' : 'No' }}</td>
                 <td>{{ article.unit }}</td>
                 <td>{{ article.barCode }}</td>
-                <td>
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                <td style="display: -webkit-box">
+                  <li style="list-style-type: none">
+                                <a class="" href="{{ path('article_show', {'id': article.id}) }}">
+                                    <i class="lnr lnr-eye mr"></i>
+                                
+                                </a>
+                            </li>
+                            <li style="list-style-type: none">
+                                <a class="" href="{{ path('article_edit', {'id': article.id}) }}">
+                                    <i class="lnr lnr-pencil"></i>
+                                    
+                                </a>
+                            </li>
+                            <li style="list-style-type: none">
+                            <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+
+                                <button class="btn-link" style="margin-top: -10px">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                                    <i class="lnr lnr-trash"></i>
+
+                                </button>
+                            </form>
+                        </li>
+                    {# <a href="">show</a> #}
+                    {# <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
@@ -40,6 +63,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('article_new') }}">Create new</a>
+     <a href="{{ path('article_new') }}" style="color:#fff"><button class="btn btn-success" type="button"/>Ajouter Article</a>
 {% endblock %}

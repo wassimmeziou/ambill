@@ -1,5 +1,12 @@
 <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-    <button class="btn-danger">Delete</button>
+    <button class="btn btn-danger custombutton" {% if app.request.attributes.get('_route') in [
+                    'article_index' ,
+                    'article_new' ,
+                    'article_edit' ,
+                    'article_delete'
+                    ] %}  style="
+      margin-top: -60px;
+    margin-left: 115px;" {% endif %}><i class="fa fa-trash-o"></i> Supprimer</button>
 </form>

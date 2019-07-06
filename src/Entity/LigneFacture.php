@@ -23,7 +23,6 @@ class LigneFacture
      */
     private $qte;
 
-
     /**
      * @ORM\Column(type="decimal", precision=6, scale=3, nullable=true)
      */
@@ -55,6 +54,7 @@ class LigneFacture
      */
     private $tva;
 
+  
     public function getId(): ?int
     {
         return $this->id;

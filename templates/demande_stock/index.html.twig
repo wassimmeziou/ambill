@@ -9,6 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Commerciale</th>
+                <th>Date Envoie</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -16,6 +18,8 @@
         {% for demande_stock in demande_stocks %}
             <tr>
                 <td>{{ demande_stock.id }}</td>
+                <td>{{ demande_stock.comercial }}</td>
+                <td>{{ demande_stock.dateEnvoi }}</td>
                 <td>
                     <a href="{{ path('demande_stock_show', {'id': demande_stock.id}) }}">show</a>
                     <a href="{{ path('demande_stock_edit', {'id': demande_stock.id}) }}">edit</a>

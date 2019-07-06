@@ -24,10 +24,28 @@ class StockVoitures
 
     private $quantiteStockVoiture;
 
+
+
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Commercial", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
      */
-    private $commercial;
+    private $article;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nomArticle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nomVoiture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Voiture", inversedBy="stockVoitures")
+     */
+    private $voiture;
+
 
 
     public function getId(): ?int
@@ -48,14 +66,51 @@ class StockVoitures
         return $this;
     }
 
-    public function getCommercial(): ?Commercial
+   
+    public function getArticle(): ?Article
     {
-        return $this->commercial;
+        return $this->article;
     }
 
-    public function setCommercial(?Commercial $commercial): self
+    public function setArticle(?Article $article): self
     {
-        $this->commercial = $commercial;
+        $this->article = $article;
+
+        return $this;
+    }
+
+    public function getNomArticle(): ?string
+    {
+        return $this->nomArticle;
+    }
+
+    public function setNomArticle(?string $nomArticle): self
+    {
+        $this->nomArticle = $nomArticle;
+
+        return $this;
+    }
+
+    public function getNomVoiture(): ?string
+    {
+        return $this->nomVoiture;
+    }
+
+    public function setNomVoiture(?string $nomVoiture): self
+    {
+        $this->nomVoiture = $nomVoiture;
+
+        return $this;
+    }
+
+    public function getVoiture(): ?Voiture
+    {
+        return $this->voiture;
+    }
+
+    public function setVoiture(?Voiture $voiture): self
+    {
+        $this->voiture = $voiture;
 
         return $this;
     }

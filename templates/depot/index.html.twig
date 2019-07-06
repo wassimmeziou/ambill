@@ -9,8 +9,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>QuantiteDepot</th>
                 <th>AdresseDepot</th>
+                <th>NomDepot</th>
+                <th>Descrption</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,20 +19,44 @@
         {% for depot in depots %}
             <tr>
                 <td>{{ depot.id }}</td>
-                <td>{{ depot.quantiteDepot }}</td>
                 <td>{{ depot.adresseDepot }}</td>
-                <td>
-                    <a href="{{ path('depot_show', {'id': depot.id}) }}">show</a>
-                    <a href="{{ path('depot_edit', {'id': depot.id}) }}">edit</a>
+                <td>{{ depot.nomDepot }}</td>
+                <td>{{ depot.descrption }}</td>
+                <td style="display: -webkit-box">
+                 
+                            <li style="list-style-type: none">
+                                <a class="" href="{{ path('depot_edit', {'id': depot.id}) }}">
+                                    <i class="lnr lnr-pencil"></i>
+                                    
+                                </a>
+                            </li>
+                            <li style="list-style-type: none">
+                            <form method="post" action="{{ path('depot_delete', {'id': depot.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+
+                                <button class="btn-link" style="margin-top: -10px">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ depot.id) }}">
+                                    <i class="lnr lnr-trash"></i>
+
+                                </button>
+                            </form>
+                        </li>
+                         <li style="list-style-type: none">
+                                <a class="" href="{{ path('depot_show', {'id': depot.id}) }}">Consulter Stock
+                                    <i class="lnr lnr-eye mr"></i>
+                                
+                                </a>
+                            </li>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('depot_new') }}">Create new</a>
+     <a href="{{ path('depot_new') }}" style="color:#fff"><button class="btn btn-success" type="button"/>Ajouter Depot</a>
+
 {% endblock %}

@@ -55,6 +55,7 @@ class StockVoituresController extends AbstractController
     {
         return $this->render('stock_voitures/show.html.twig', [
             'stock_voiture' => $stockVoiture,
+            's' => $stockVoiture->voiture,
         ]);
     }
 

@@ -12,7 +12,19 @@ class LigneInventaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('qteInv')
+        ->add('article',null,
+        [
+            'label' => 'Article :',
+            'placeholder' => 'Choisir..',
+            'attr' => array('class' => 'form-control')
+        ])
+            ->add('qteInv', null,
+            [
+                'label' => 'Quantité :',
+                'attr' => array('class' => 'form-control'),
+                // 'label_attr' => array('class' => 'fancy-checkbox')
+            ])
+          
         ;
     }
 

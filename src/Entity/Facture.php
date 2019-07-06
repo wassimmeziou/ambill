@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Facture
      * @ORM\ManyToOne(targetEntity="App\Entity\Commercial")
      */
     private $commercial;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="facture")
+     */
+    private $ligneFacture;
+
+    public function __construct()
+    {
+        $this->ligneFacture = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -86,6 +98,37 @@ class Facture
     public function setCommercial(?Commercial $commercial): self
     {
         $this->commercial = $commercial;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LigneFacture[]
+     */
+    public function getLigneFacture(): Collection
+    {
+        return $this->ligneFacture;
+    }
+
+    public function addLigneFacture(LigneFacture $ligneFacture): self
+    {
+        if (!$this->ligneFacture->contains($ligneFacture)) {
+            $this->ligneFacture[] = $ligneFacture;
+            $ligneFacture->setSs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneFacture(LigneFacture $ligneFacture): self
+    {
+        if ($this->ligneFacture->contains($ligneFacture)) {
+            $this->ligneFacture->removeElement($ligneFacture);
+            // set the owning side to null (unless already changed)
+            if ($ligneFacture->getSs() === $this) {
+                $ligneFacture->setSs(null);
+            }
+        }
 
         return $this;
     }

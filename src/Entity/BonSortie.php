@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,14 +24,28 @@ class BonSortie
     private $reference;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Depot", inversedBy="bonSorties")
      */
-    private $qteSortie;
+    private $depot;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\StockVoitures")
      */
     private $stockVoiture;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneBonSortie", mappedBy="bonSortie")
+     */
+    private $ligneBonSorties;
+
+
+
+
+    public function __construct()
+    {
+        $this->depots = new ArrayCollection();
+        $this->ligneBonSorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -48,18 +64,6 @@ class BonSortie
         return $this;
     }
 
-    public function getQteSortie(): ?int
-    {
-        return $this->qteSortie;
-    }
-
-    public function setQteSortie(?int $qteSortie): self
-    {
-        $this->qteSortie = $qteSortie;
-
-        return $this;
-    }
-
     public function getStockVoiture(): ?StockVoitures
     {
         return $this->stockVoiture;
@@ -68,6 +72,49 @@ class BonSortie
     public function setStockVoiture(?StockVoitures $stockVoiture): self
     {
         $this->stockVoiture = $stockVoiture;
+
+        return $this;
+    }
+
+    public function getDepot(): ?Depot
+    {
+        return $this->depot;
+    }
+
+    public function setDepot(?Depot $depot): self
+    {
+        $this->depot = $depot;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LigneBonSortie[]
+     */
+    public function getLigneBonSorties(): Collection
+    {
+        return $this->ligneBonSorties;
+    }
+
+    public function addLigneBonSorty(LigneBonSortie $ligneBonSorty): self
+    {
+        if (!$this->ligneBonSorties->contains($ligneBonSorty)) {
+            $this->ligneBonSorties[] = $ligneBonSorty;
+            $ligneBonSorty->setBonSortie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneBonSorty(LigneBonSortie $ligneBonSorty): self
+    {
+        if ($this->ligneBonSorties->contains($ligneBonSorty)) {
+            $this->ligneBonSorties->removeElement($ligneBonSorty);
+            // set the owning side to null (unless already changed)
+            if ($ligneBonSorty->getBonSortie() === $this) {
+                $ligneBonSorty->setBonSortie(null);
+            }
+        }
 
         return $this;
     }

@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Depot;
-use App\Entity\Stock;
-use App\Form\StockType;
 use App\Form\DepotType;
-use App\Repository\StockRepository;
 use App\Repository\DepotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,9 +31,7 @@ class DepotController extends AbstractController
     public function new(Request $request): Response
     {
         $depot = new Depot();
-     //   $stock = new Stock();
         $form = $this->createForm(DepotType::class, $depot);
-        //$form = $this->createForm(StockType::class, $stock);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,8 +53,10 @@ class DepotController extends AbstractController
      */
     public function show(Depot $depot): Response
     {
-        return $this->render('depot/show.html.twig', [
+        return $this->render('stock/index.html.twig', [
+            'stocks' => $depot->getStocks(),
             'depot' => $depot,
+            
         ]);
     }
 
@@ -90,6 +87,7 @@ class DepotController extends AbstractController
      */
     public function delete(Request $request, Depot $depot): Response
     {
+        dump($depot);
         if ($this->isCsrfTokenValid('delete'.$depot->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($depot);
