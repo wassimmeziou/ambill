@@ -18,7 +18,9 @@ class Stock
 
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article",cascade={"persist", "remove"})
+    * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * 
      */
     private $article;
 

@@ -5,54 +5,71 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 // use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\Countries;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
+ *  *  @ApiResource(attributes={
+ *  "formats"={"json", "jsonld"},
+ *     "normalization_context"={"groups"={"read"}},
+ *     "denormalization_context"={"groups"={"write"}}
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\CommercialRepository")
  */
 class Commercial
 {
     /**
+     * @Groups({"read", "write"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *  
      */
     private $id;
 
     /**
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255)
      */
-    private $cin;
+    public $cin;
 
     /**
+     *  @Groups({"read"})
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $nom;
 
     /**
+     *  @Groups({"read"})
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $prenom;
 
     /**
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adresse;
 
     /**
+     *  @Groups({"read"})
+     *  
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
+     *  @Groups({"read"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $age;
 
     /**
+     *  @Groups({"read", "write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Voiture", inversedBy="commercial", cascade={"persist", "remove"})
      */
     private $voiture;
 
-    private $countryName;
 
     public function getCountryName() {
        // return Intl::getRegionBundle()->getCountryName($this->getVille());

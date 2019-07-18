@@ -9,19 +9,17 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Qte</th>
-                <th>actions</th>
+                <th>Article</th>
+                <th>Quantité</th>
             </tr>
         </thead>
         <tbody>
         {% for ligne_command in ligne_commands %}
             <tr>
                 <td>{{ ligne_command.id }}</td>
+                <td>{{ ligne_command.article }}</td>
                 <td>{{ ligne_command.qte }}</td>
-                <td>
-                    <a href="{{ path('ligne_command_show', {'id': ligne_command.id}) }}">show</a>
-                    <a href="{{ path('ligne_command_edit', {'id': ligne_command.id}) }}">edit</a>
-                </td>
+         
             </tr>
         {% else %}
             <tr>
@@ -31,5 +29,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('ligne_command_new') }}">Create new</a>
+    {# <a href="{{ path('ligne_command_new') }}">Create new</a> #}
 {% endblock %}

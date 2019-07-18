@@ -5,8 +5,15 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ *  *  @ApiResource(attributes={
+ *  "formats"={"json", "jsonld"},
+ *     "normalization_context"={"groups"={"read"}},
+ *     "denormalization_context"={"groups"={"write"}}
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\VoitureRepository")
  */
 class Voiture
@@ -15,15 +22,21 @@ class Voiture
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *  @Groups({"read", "write"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
+     * 
      */
     private $matricule;
 
     /**
+     *  @Groups({"read", "write"})
+     * 
      * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $model;
@@ -35,6 +48,7 @@ class Voiture
     private $commercial;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="App\Entity\StockVoitures", mappedBy="voiture")
      */
     private $stockVoitures;

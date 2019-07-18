@@ -14,9 +14,10 @@
                 <th>Article</th>
                 <th>Quantité</th>
                 
-                <th>Prix UHT</th>
+                <th>PrixHT</th>
                 <th>TVA</th>
-                <th>Prix TT</th>
+                <th>Prix TTC</th>
+                <th>Prix ToTal</th>
                 <th>Remise</th>
                 <th>Prix Finale</th>
                 {# <th>actions</th> #}
@@ -31,23 +32,28 @@
               
                 <td>{{ ligne_facture.prixUHT }}</td>
                 <td>{{ ligne_facture.tva }}</td>
+                <td>{{ ligne_facture.prixTTC }}</td>
                 <td>{{ ligne_facture.prixTT }}</td>
                 <td>{{ ligne_facture.remise }}</td>
-                <td>({{ ligne_facture.qte }}*{{ ligne_facture.prixTT }}/{{ ligne_facture.remise }})</td>
+                <td>({{ ligne_facture.prixFinal }})</td>
                 <td>
                     {# <a href="{{ path('ligne_facture_show', {'id': ligne_facture.id}) }}">show</a> #}
                     {# <a href="{{ path('ligne_facture_edit', {'id': ligne_facture.id}) }}">edit</a> #}
                 </td>
             </tr>
-              <tr>
-                <td colspan="8"> {{ facture.prixTotal}}</td>
-            </tr>
-           
+        
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
+         <tr>
+                <td  align="right" colspan="9">Prix Totale + Remise</td>
+            </tr>
+              <tr>
+                <td align="right" colspan="9"> {{ facture.prixTotal}}</td>
+            </tr>
+           
         </tbody>
     </table>
 

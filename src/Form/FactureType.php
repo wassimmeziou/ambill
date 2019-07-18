@@ -12,10 +12,12 @@ class FactureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('refExterne')
             ->add('dateSaisie')
             ->add('client')
             ->add('prixTotal')
             ->add('commercial')
+            ->add('etat')
         ;
     }
 
@@ -23,6 +25,8 @@ class FactureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Facture::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

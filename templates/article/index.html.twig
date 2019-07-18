@@ -1,17 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Articles
+{% endblock %}
 {% block body %}
 
-    <h1>Article index</h1>
-   
-    <table class="table table-striped table-hover">
-        <thead>
+    {# {{ dump() }} #}
+    {# {{ app.request.getBaseURL() }} #}
+
+    {# {{ app.request.getSchemeAndHttpHost() }} #}<h1>Articles
+    </h1>
+
+        <table class="table table-striped table-hover"> <thead>
             <tr>
                 <th>Id</th>
                 <th>Designation</th>
-                <th>PrixHT</th>
+                <th>Prix Achat</th>
+                <th>Marge</th>
+                <th>Prix Vente</th>
+
+                <th>TVA</th>
                 <th>PrixTTC</th>
+
                 <th>Disponibilit</th>
                 <th>Unit</th>
                 <th>BarCode</th>
@@ -19,29 +28,34 @@
             </tr>
         </thead>
         <tbody>
-        {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.designation }}</td>
-                <td>{{ article.prixHT }}</td>
-                <td>{{ article.prixTTC }}</td>
-                <td>{{ article.disponibilit ? 'Yes' : 'No' }}</td>
-                <td>{{ article.unit }}</td>
-                <td>{{ article.barCode }}</td>
-                <td style="display: -webkit-box">
-                  <li style="list-style-type: none">
-                                <a class="" href="{{ path('article_show', {'id': article.id}) }}">
-                                    <i class="lnr lnr-eye mr"></i>
-                                
-                                </a>
-                            </li>
-                            <li style="list-style-type: none">
-                                <a class="" href="{{ path('article_edit', {'id': article.id}) }}">
-                                    <i class="lnr lnr-pencil"></i>
-                                    
-                                </a>
-                            </li>
-                            <li style="list-style-type: none">
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td>{{ article.designation }}</td>
+                    <td>{{ article.prixAchat }}</td>
+                    <td>{{ article.marge }}</td>
+                    <td>{{ article.prixVente }}</td>
+                    <td>{{ article.tva }}</td>
+
+                    <td>{{ article.prixTTC }}</td>
+
+                    <td>{{ article.disponibilit ? 'Yes' : 'No' }}</td>
+                    <td>{{ article.unit }}</td>
+                    <td>{{ article.barCode }}</td>
+                    <td style="display: -webkit-box">
+                        <li style="list-style-type: none">
+                            <a class="" href="{{ path('article_show', {'id': article.id}) }}">
+                                <i class="lnr lnr-eye mr"></i>
+
+                            </a>
+                        </li>
+                        <li style="list-style-type: none">
+                            <a class="" href="{{ path('article_edit', {'id': article.id}) }}">
+                                <i class="lnr lnr-pencil"></i>
+
+                            </a>
+                        </li>
+                        <li style="list-style-type: none">
                             <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
 
                                 <button class="btn-link" style="margin-top: -10px">
@@ -52,16 +66,16 @@
                                 </button>
                             </form>
                         </li>
-                    {# <a href="">show</a> #}
-                    {# <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a> #}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
+                        {# <a href="">show</a> #}
+                        {# <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a> #}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-     <a href="{{ path('article_new') }}" style="color:#fff"><button class="btn btn-success" type="button"/>Ajouter Article</a>
+    <a href="{{ path('article_new') }}" style="color:#fff"><button class="btn btn-success" type="button"/>Ajouter Article</a>
 {% endblock %}

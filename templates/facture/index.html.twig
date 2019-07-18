@@ -1,18 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Facture index{% endblock %}
+{% block title %}Factures{% endblock %}
 
 {% block body %}
-    <h1>Facture index</h1>
+    <h1>Factures</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Code Facture</th>
+                <th>Reference</th>
                 <th>Client</th>
                 <th>Date </th>
                 <th>Prix Totale</th>
                 <th>Commercial</th>
+                <th>Etat</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,13 +23,46 @@
         {% for facture in factures %}
             <tr>
                 <td>{{ facture.id }}</td>
+                <td>{{ facture.codeIntern }}</td>
+                <td>{{ facture.refExterne }}</td>
                 <td>{{ facture.client }}</td>
                 <td>{{ facture.dateSaisie ? facture.dateSaisie|date('Y-m-d') : '' }}</td>
                 <td>{{ facture.prixTotal }}</td>
                 <td>{{ facture.commercial }}</td>
+                {% if facture.etat is not same as(null) %}
+                <td>{{ facture.etat.description }}</td>
+                 {% else %}
+                <td>pas d'etat</td>
+
+                {% endif %}
+                <td style="display: -webkit-box">
+                 
+                            {# <li style="list-style-type: none">
+                                <a class="" href="{{ path('depot_edit', {'id': facture.id}) }}">
+                                    <i class="lnr lnr-pencil"></i>
+                                    
+                                </a>
+                            </li> #}
+                            {# <li style="list-style-type: none">
+                            <form method="post" action="{{ path('depot_delete', {'id': facture.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+
+                                <button class="btn-link" style="margin-top: -10px">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ depot.id) }}">
+                                    <i class="lnr lnr-trash"></i>
+
+                                </button>
+                            </form>
+                        </li> #}
+                         <li style="list-style-type: none">
+                                <a class="" href="{{ path('facture_show', {'id': facture.id}) }}">Consulter                        <i class="lnr lnr-eye mr"></i>
+                                
+                                </a>
+                            </li>
+                </td>
                 <td>
-                    <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a>
-                    <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a>
+                    {# <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a> #}
+                    {# <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
@@ -37,5 +73,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('facture_new') }}">Create new</a>
+    {# <a href="{{ path('facture_new') }}">Create new</a> #}
 {% endblock %}

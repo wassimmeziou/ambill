@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 
@@ -26,11 +27,38 @@ class ArticleType extends AbstractType
                     // 'label_attr' => array('class' => 'fancy-checkbox')
                 ]
             )
-            ->add('prixHT', null, ['label' => 'Prix Hors Tax :', 'attr' => array('class' => 'form-control')])
-            ->add('prixTTC', null, ['label' => 'Prix Toutes Tax : ', 'attr' => array('class' => 'form-control')])
+
+
+            ->add('prixAchat', null, ['label' => 'Prix d\'achat :', 
+            'attr' => array('class' => 'form-control calc achat'/*,'value' => '0'*/)])
+
+            ->add('marge', null, ['label' => 'Marge :', 
+            'required'=>true,
+            'attr' => array('class' => 'form-control calc marge'/*,'value' => '0'*/)])
+
+            ->add('prixVente', null, ['label' => 'Prix Vente :',
+             'attr' => array('class' => 'form-control res','readonly'   => true)])
+
+
+
+             ->add('tva', EntityType::class, [
+                'label' => 'Prix Tax sur valeur ajoutée :',
+                //'choice_label' => 'id',
+                'required'=>true,
+                'placeholder' => 'Choisir..',
+                'class' => 'App\Entity\Tva',
+                'attr' => array('class' => 'form-control calc tva')
+            ])
+
+            ->add('prixTTC', null, [
+                'label' => 'Prix Toutes Tax : ', 
+               
+                 'attr' => array('class' => 'form-control ventetva','readonly'=> true)
+            ])
+            
             ->add('disponibilit', ChoiceType::class, array(
                 'label' => 'disponibile :',
-
+                
                 // 'attr' => array('class' => 'radcust'),
                 'choices' => array(
                     'Oui' => true,
@@ -58,9 +86,10 @@ class ArticleType extends AbstractType
                     'attr' => array('class' => 'form-control')
                 ]
             )
-            ->add('barCode', null, ['label' => 'Code A Bare :', 'attr' => array('class' => 'form-control')])
-            ->add('tva', null, ['label' => 'Prix Tax sur valeur ajoutée :', 'placeholder' => 'Choisir..', 'attr' => array('class' => 'form-control')]);
+            ->add('barCode', null, ['label' => 'Code A Bare :', 'attr' => array('class' => 'form-control')]);
     }
+
+
     // ->add('pays',DateTimeType::class, [
     //     'date_label' => 'Starts On',
     // ])
@@ -89,6 +118,8 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'csrf_protection' => false,
+
         ]);
     }
 

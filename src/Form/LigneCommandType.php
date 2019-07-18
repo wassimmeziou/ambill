@@ -21,6 +21,8 @@ class LigneCommandType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LigneCommand::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

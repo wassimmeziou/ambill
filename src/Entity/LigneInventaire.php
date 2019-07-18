@@ -31,11 +31,14 @@ class LigneInventaire
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article",  fetch="EAGER")
+    * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * 
      */
     private $article;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Inventaire", inversedBy="ligneInventaires")
+     * 
      */
     private $inventaire;
     

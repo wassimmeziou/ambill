@@ -97,7 +97,9 @@ class InventaireController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-
+           
+            //delete all stock voiture
+         //   $entityManager->remove($inventaire);
 
             $lignes = $inventaire->getLigneInventaires();
             $voiture = $inventaire->getVoiture();

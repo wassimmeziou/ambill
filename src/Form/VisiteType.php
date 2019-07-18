@@ -14,8 +14,8 @@ class VisiteType extends AbstractType
         $builder
             ->add('dateVisite')
             ->add('remarques')
-            ->add('commercial')
             ->add('client')
+            ->add('commercial')
         ;
     }
 
@@ -23,6 +23,8 @@ class VisiteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Visite::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

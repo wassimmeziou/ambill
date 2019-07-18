@@ -5,13 +5,21 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ *  *  @ApiResource(attributes={
+ *  "formats"={"json", "jsonld"},
+ *     "normalization_context"={"groups"={"read"}},
+ *     "denormalization_context"={"groups"={"write"}}
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\LigneFactureRepository")
  */
 class LigneFacture
 {
     /**
+     *  @Groups({"read", "write"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,40 +27,64 @@ class LigneFacture
     private $id;
 
     /**
+     *   @Groups({"read", "write"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $qte;
 
     /**
+     *  @Groups({"read", "write"})
      * @ORM\Column(type="decimal", precision=6, scale=3, nullable=true)
      */
     private $prixTT;
 
     /**
+     *   @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+    * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * 
      */
     private $article;
 
     /**
+     *  @Groups({"read", "write"})
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $remise;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Facture")
+     *   @Groups({"read"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Facture", inversedBy="ligneFacture")
      * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $facture;
 
     /**
+     *   @Groups({"read", "write"})
      * @ORM\Column(type="decimal", precision=6, scale=3, nullable=true)
      */
     private $prixUHT;
 
     /**
+     *  @Groups({"read", "write"})
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $tva;
+
+    /**
+     *  @Groups({"read", "write"})
+     * 
+     * @ORM\Column(type="decimal", precision=6, scale=3, nullable=true)
+     */
+    private $prixTTC;
+
+    /**
+     *  @Groups({"read", "write"})
+     * 
+     * @ORM\Column(type="decimal", precision=10, scale=3, nullable=true)
+     */
+    private $prixFinal;
 
   
     public function getId(): ?int
@@ -140,6 +172,30 @@ class LigneFacture
     public function setTva(?int $tva): self
     {
         $this->tva = $tva;
+
+        return $this;
+    }
+
+    public function getPrixTTC()
+    {
+        return $this->prixTTC;
+    }
+
+    public function setPrixTTC($prixTTC): self
+    {
+        $this->prixTTC = $prixTTC;
+
+        return $this;
+    }
+
+    public function getPrixFinal()
+    {
+        return $this->prixFinal;
+    }
+
+    public function setPrixFinal($prixFinal): self
+    {
+        $this->prixFinal = $prixFinal;
 
         return $this;
     }

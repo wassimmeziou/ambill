@@ -12,8 +12,8 @@
                 <td>{{ command.id }}</td>
             </tr>
             <tr>
-                <th>Date</th>
-                <td>{{ command.date }}</td>
+                <th>DateCommander</th>
+                <td>{{ command.dateCommander ? command.dateCommander|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>

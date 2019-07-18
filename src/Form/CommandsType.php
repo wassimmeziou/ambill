@@ -22,6 +22,8 @@ class CommandsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Commands::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

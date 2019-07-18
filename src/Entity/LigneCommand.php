@@ -5,13 +5,22 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
+ * @ApiResource(attributes={
+ *  "formats"={"json", "jsonld"},
+ *     "normalization_context"={"groups"={"read"}},
+ *     "denormalization_context"={"groups"={"write"}}
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\LigneCommandRepository")
  */
 class LigneCommand
 {
     /**
+     * @Groups({"read", "write"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,19 +28,24 @@ class LigneCommand
     private $id;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $qte;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Commands")
-     */
-    private $command;
-
-    /**
+     * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * 
      */
     private $article;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commands", inversedBy="ligneCommands")
+     */
+    private $Command;
 
     public function getId(): ?int
     {
@@ -50,17 +64,7 @@ class LigneCommand
         return $this;
     }
 
-    public function getCommand(): ?Commands
-    {
-        return $this->command;
-    }
 
-    public function setCommand(?Commands $command): self
-    {
-        $this->command = $command;
-
-        return $this;
-    }
 
     public function getArticle(): ?Article
     {
@@ -74,5 +78,15 @@ class LigneCommand
         return $this;
     }
 
+    public function getCommand(): ?Commands
+    {
+        return $this->Command;
+    }
 
+    public function setCommand(?Commands $Command): self
+    {
+        $this->Command = $Command;
+
+        return $this;
+    }
 }

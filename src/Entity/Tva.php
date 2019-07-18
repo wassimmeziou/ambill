@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ *  *  @ApiResource
+
  * @ORM\Entity(repositoryClass="App\Repository\TvaRepository")
  */
 class Tva
@@ -13,15 +16,18 @@ class Tva
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *  @Groups({"read", "write"})
      */
     private $id;
 
     /**
+     *  @Groups({"read", "write"})
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $nom;
 
     /**
+     *  @Groups({"read", "write"})
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $valeur;
@@ -58,6 +64,7 @@ class Tva
 	$x = $this->valeur;
 	$y = (string)$x;
 	$w = $this->nom;
-    return $w . " ".$y."%";
+   // return $w . " ".$y."%";
+    return $y."%";
 }
 }

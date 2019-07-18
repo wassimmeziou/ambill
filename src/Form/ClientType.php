@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ClientType extends AbstractType
 {
@@ -36,6 +37,8 @@ class ClientType extends AbstractType
 // 'constraints' => array(new NotBlank(array("message" => "Please give a Subject")),
        
                 ))
+            ->add('longitude',     HiddenType::class     )
+            ->add('lattitude',     HiddenType::class     )
         ;
     }
 
@@ -43,6 +46,8 @@ class ClientType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Client::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

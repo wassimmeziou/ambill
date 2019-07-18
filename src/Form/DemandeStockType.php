@@ -20,6 +20,8 @@ class DemandeStockType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => DemandeStock::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

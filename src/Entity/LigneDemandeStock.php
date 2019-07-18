@@ -31,6 +31,8 @@ class LigneDemandeStock
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+    * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * 
      */
     private $article;
 

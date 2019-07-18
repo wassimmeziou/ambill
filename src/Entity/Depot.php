@@ -5,13 +5,21 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
+/** attributes={"fetchEager": true}
+ *  *  @ApiResource(attributes={
+ *  "formats"={"json", "jsonld"},"force_eager": false,
+ *     "normalization_context"={"groups"={"read"}, "enable_max_depth"=true},
+ *     "denormalization_context"={"groups"={"write"}}
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\DepotRepository")
  */
 class Depot
 {
     /**
+     * @Groups({"read"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,26 +27,31 @@ class Depot
     private $id;
 
     /**
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adresseDepot;
 
     /**
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Stock", mappedBy="depot",cascade={"persist", "remove"})
      */
     private $stocks;
 
     /**
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomDepot;
 
     /**
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $descrption;
 
     /**
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\BonSortie", mappedBy="depot")
      */
     private $bonSorties;

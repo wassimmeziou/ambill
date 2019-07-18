@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commands;
-use App\Form\CommandsType;
+use App\Form\Commands1Type;
 use App\Repository\CommandsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ class CommandsController extends AbstractController
     public function new(Request $request): Response
     {
         $command = new Commands();
-        $form = $this->createForm(CommandsType::class, $command);
+        $form = $this->createForm(Commands1Type::class, $command);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,8 +53,9 @@ class CommandsController extends AbstractController
      */
     public function show(Commands $command): Response
     {
-        return $this->render('commands/show.html.twig', [
+        return $this->render('ligne_command/index.html.twig', [
             'command' => $command,
+            'ligne_commands' => $command->getLigneCommands(),
         ]);
     }
 
@@ -63,7 +64,7 @@ class CommandsController extends AbstractController
      */
     public function edit(Request $request, Commands $command): Response
     {
-        $form = $this->createForm(CommandsType::class, $command);
+        $form = $this->createForm(Commands1Type::class, $command);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

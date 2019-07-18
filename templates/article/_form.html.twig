@@ -1,4 +1,6 @@
 {{ form_start(form) }}
+    {# {{ dump() }} #}
+
 {# <div class="panel-heading"><h1 class="panel-title">Create new Article</h3></div> #}
 {{ form_widget(form) }}
 
@@ -8,3 +10,5 @@
 <a href="{{ path('article_index') }}" style="color:#00AAFF"><button class="btn btn-light custombutton" style="float:right" type="button"/>Annuler</a>
 
 {{ form_end(form) }}
+<script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('generate_text.js') }}"/>

@@ -35,11 +35,28 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //dump($article);
+          //  die();
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('article_index');
+            // $tvaResp = $article->getTva()->getValeur();
+            // $prAchat = $article->getPrixAchat();
+            // $marge = $article->getMarge();
+
+            // $prVnt = $prAchat + ($prAchat * $marge * 0.01);
+            // $article->setPrixVente($prVnt);
+
+            // $prTTC = $prVnt + ($prVnt * $tvaResp * 0.01);
+            // $article->setPrixTTC($prTTC);
+
+         //   dump($article);
+
+         //   if (isset($prVnt)) {
+                $entityManager->persist($article);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('article_index');
+          //  }
         }
 
         return $this->render('article/new.html.twig', [
@@ -67,7 +84,18 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            // $tvaResp = $article->getTva()->getValeur();
+            // $prHT = $article->getPrixHT();
+            // $prTTC = $prHT + ($prHT * $tvaResp * 0.01);
+            // $article->setPrixTTC($prTTC);
+
+            // $marge = $article->getMarge();
+            // $prVnt = $prTTC + ($prTTC * $marge * 0.01);
+            // $article->setPrixVente($prVnt);
+
+
+            $em->flush();
 
             return $this->redirectToRoute('article_index', [
                 'id' => $article->getId(),
@@ -85,7 +113,7 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
@@ -93,5 +121,4 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article_index');
     }
-
 }

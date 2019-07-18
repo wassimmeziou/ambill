@@ -20,6 +20,8 @@ class LigneFactureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LigneFacture::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

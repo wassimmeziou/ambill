@@ -22,19 +22,27 @@ class FactureRepository extends ServiceEntityRepository
     // /**
     //  * @return Facture[] Returns an array of Facture objects
     //  */
-    /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        // return $this->createQueryBuilder('f')
+        //     ->andWhere('f.commercial.cin = :val')
+        //     ->setParameter('val', $value)
+        //   //  ->orderBy('f.id', 'ASC')
+        //  //   ->setMaxResults(10)
+        //     ->getQuery()
+        //     ->getResult()
+        // ;
+        return $this->createQueryBuilder('p')
+        // p.category refers to the "category" property on product
+        ->innerJoin('p.commercial', 'c')
+        // selects all the category data to avoid the query
+        ->addSelect('c')
+        ->andWhere('p.id = :id')
+        ->setParameter('id', $value)
+        ->getQuery()
+        ->getOneOrNullResult();
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Facture
